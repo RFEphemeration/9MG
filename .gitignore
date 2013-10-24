@@ -1,7 +1,11 @@
+3 minute dodge/Temp/*
+3 minute dodge/Library/metadata/*
+3 minute dodge/Library/ScriptAssemblies/*
+
+
 #################
 ## Eclipse
 #################
-
 *.pydevproject
 .project
 .metadata
@@ -138,7 +142,7 @@ csx
 
 # Windows Store app package directory
 AppPackages/
-
+
 # Others
 sql/
 *.Cache
