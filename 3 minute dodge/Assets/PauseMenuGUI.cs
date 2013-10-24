@@ -59,7 +59,9 @@ public class PauseMenuGUI : MonoBehaviour {
                         GUI.BeginGroup(menuAreaNormalized);
                         if(menuPage == "main")
                         {
-                                if(!gameOver)
+							GUI.Button(new Rect(0, 0, 200, 100), "Resume");
+				
+                              /*  if(!gameOver)
                                 {
                                         if(GUI.Button(new Rect(resumeButton), "Resume"))
                                         {
@@ -83,7 +85,7 @@ public class PauseMenuGUI : MonoBehaviour {
                                         {
                                                 StartCoroutine("ButtonAction", "quit");
                                         }
-                                }
+                                }*/
                         }
                         else if(menuPage == "options")
                         {
