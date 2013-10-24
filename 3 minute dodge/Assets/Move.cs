@@ -10,7 +10,7 @@ public class Move : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position += new Vector3(Input.GetAxis("Horizontal") * 0.3f,0,0);
+		transform.position += new Vector3(Input.GetAxis("Horizontal") * 0.3f,0,Input.GetAxis("Vertical") * 0.3f);
 	}
 	
 	void OnCollisionEnter() {

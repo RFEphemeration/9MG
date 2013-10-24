@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Cubes : MonoBehaviour {
-	public float delay = 0.1f;
+	public float delay = 5.0f;
 	public GameObject cube;
 
 	// Use this for initialization
@@ -11,7 +11,9 @@ public class Cubes : MonoBehaviour {
 	}
 	
 	void Spawn () {
-		Instantiate(cube,new Vector3(Random.Range(-6,6),10,0),Quaternion.identity);
+		Vector3 position = new Vector3(Random.Range(10,-10),3,Random.Range (10,-10));
+		
+		Instantiate(cube,position,Quaternion.identity);
 	}
 	
 }
