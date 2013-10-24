@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class Move : MonoBehaviour {
-
+	public GameObject killer;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -13,7 +14,9 @@ public class Move : MonoBehaviour {
 		transform.position += new Vector3(Input.GetAxis("Horizontal") * 0.3f,0,Input.GetAxis("Vertical") * 0.3f);
 	}
 	
-	void OnCollisionEnter() {
-		Destroy(gameObject);
+	void OnCollisionEnter(Collision col) {
+		if (col.gameObject.tag == killer.tag ) { 
+			Destroy(gameObject);
+		}
 	}
 }

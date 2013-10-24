@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Move.cs">
     <Files>
-      <File FileName="Assets\Move.cs" Line="13" Column="71" />
-      <File FileName="Assets\Cubes.cs" Line="15" Column="3" />
-      <File FileName="Assets\Cube.cs" Line="14" Column="24" />
+      <File FileName="Assets\Move.cs" Line="18" Column="40" />
+      <File FileName="Assets\Cubes.cs" Line="5" Column="26" />
+      <File FileName="Assets\Cube.cs" Line="27" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

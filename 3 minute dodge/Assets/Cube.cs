@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Cube : MonoBehaviour {
 	private Vector3 direction;
-	private bool lethal;
+	public bool lethal;
+	public Material mat;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,7 @@ public class Cube : MonoBehaviour {
 		}
 		if (!lethal && transform.position.y <= 1) {
 			lethal = true;
+			renderer.material = mat;
 		}
 	}
 }

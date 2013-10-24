@@ -47,6 +47,7 @@
      <Compile Include="Assets\Cube.cs" />
      <Compile Include="Assets\Cubes.cs" />
      <Compile Include="Assets\Move.cs" />
+     <Compile Include="Assets\PauseMenuGUI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
