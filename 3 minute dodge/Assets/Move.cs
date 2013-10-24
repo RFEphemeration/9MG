@@ -15,7 +15,7 @@ public class Move : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision col) {
-		if (col.gameObject.tag == killer.tag ) { 
+		if (col.gameObject.tag == killer.tag) { 
 			Destroy(gameObject);
 		}
 	}

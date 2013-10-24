@@ -5,6 +5,7 @@ public class Cube : MonoBehaviour {
 	private Vector3 direction;
 	public bool lethal;
 	public Material mat;
+	private float t;
 
 	// Use this for initialization
 	void Start () {
@@ -20,9 +21,13 @@ public class Cube : MonoBehaviour {
 		if (transform.position.y < -5) {
 			Destroy(gameObject);
 		}
-		if (!lethal && transform.position.y <= 1) {
+		if (!lethal && transform.position.y <= 1.2) {
 			lethal = true;
-			renderer.material = mat;
+			t = Time.time;
+		}
+		if (lethal) {
+			float lerp = Mathf.PingPong(Time.time, 1f) / 1f;
+			renderer.material.Lerp(renderer.material , mat, lerp);
 		}
 	}
 }
