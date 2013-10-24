@@ -16,4 +16,6 @@ public class Cubes : MonoBehaviour {
 		Instantiate(cube, position, Quaternion.identity);
 	}
 	
+
+	
 }

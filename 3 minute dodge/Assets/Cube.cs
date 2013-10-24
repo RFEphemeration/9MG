@@ -2,9 +2,10 @@
 using System.Collections;
 
 public class Cube : MonoBehaviour {
-	private Vector3 direction;
+	public Vector3 direction;
 	public bool lethal;
 	public Material mat;
+	private Material start;
 	private float t;
 
 	// Use this for initialization
@@ -12,11 +13,11 @@ public class Cube : MonoBehaviour {
 		direction = new Vector3(Random.Range(-100,100), 0, Random.Range (-100,100));
 		direction.Normalize();
 		lethal = false;
+		start = renderer.material;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		transform.position += direction * 0.1f;
+	// FixedUpdate is called once per timestep
+	void FixedUpdate () {
 		// rigidbody.AddForce(direction);
 		if (transform.position.y < -5) {
 			Destroy(gameObject);
@@ -26,8 +27,22 @@ public class Cube : MonoBehaviour {
 			t = Time.time;
 		}
 		if (lethal) {
-			float lerp = Mathf.PingPong(Time.time, 1f) / 1f;
-			renderer.material.Lerp(renderer.material , mat, lerp);
+			rigidbody.AddForce(direction * 20);
 		}
 	}
+	
+	void Update() {
+		if (lethal) {
+			float lerp = (Time.time - t) * 0.7f;
+			renderer.material.Lerp(start, mat, lerp);
+		}
+	}
+	
+	/*
+	void OnCollisionEnter(Collision col) {
+		Vector3 boom = rigidbody.position - col.gameObject.rigidbody.position;
+		boom.Normalize();
+		rigidbody.AddForce(boom * 100);
+	}
+	*/
 }
