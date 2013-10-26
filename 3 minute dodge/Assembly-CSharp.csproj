@@ -44,10 +44,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Cube.cs" />
-     <Compile Include="Assets\Cubes.cs" />
-     <Compile Include="Assets\Move.cs" />
-     <Compile Include="Assets\PauseMenuGUI.cs" />
+     <Compile Include="Assets\Scripts\Cube.cs" />
+     <Compile Include="Assets\Scripts\Cubes.cs" />
+     <Compile Include="Assets\Scripts\Move.cs" />
+     <Compile Include="Assets\Scripts\PauseMenuGUI.cs" />
+     <Compile Include="Assets\Scripts\PlayerSphere.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

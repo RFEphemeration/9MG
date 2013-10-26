@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//Just in case I want to 
+//aCurrentlySelectedUnit.GetComponent<BirdUnitFunctionalityAndStats>().moveCost
+
 public class Move : MonoBehaviour {
 	public GameObject killer;
 	
@@ -16,7 +20,10 @@ public class Move : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.tag == killer.tag) { 
+			//Destroy
 			Destroy(gameObject);
+			
+			//Boom
 			GameObject[] allObjects = GameObject.FindGameObjectsWithTag (killer.tag);
 			foreach (GameObject child in allObjects) {
     			float dist = (transform.position - child.transform.position).magnitude;
@@ -27,6 +34,12 @@ public class Move : MonoBehaviour {
 					child.rigidbody.AddForce(boom * 400f);
 				}
     		}
+			
+			//Pause and give option to reset.
+			//tell the pause menu to pause
+			PauseMenuGUI.gameOver = true;
+			
 		}
 	}
+	
 }

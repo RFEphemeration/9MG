@@ -38,18 +38,42 @@ public class PauseMenuGUI : MonoBehaviour {
                                 isPaused = false;
                         }
                 }
+			if (gameOver)
+			{
+				Time.timeScale = 0.0f;
+			}
         }
         
 	void OnGUI() {
 		GUI.skin = menuSkin;
 		GUI.depth = guiDepth;
-		if(isPaused || gameOver)
+		if(isPaused)
 		{
 			GUI.BeginGroup(menuAreaNormalized);
 			if (GUI.Button(new Rect(resumeButton), "Resume"))
 			{
 				Time.timeScale = 1.0f;
 				isPaused = false;
+			}
+			if (GUI.Button(new Rect(optionsButton), "Options"))
+			{
+				//Nothing here yet.
+			}
+			if(GUI.Button(new Rect(quitButton), "Quit"))
+			{
+				StartCoroutine("ButtonAction", "quit");
+			}
+			GUI.EndGroup();
+		}
+		if (gameOver)
+		{
+			GUI.BeginGroup(menuAreaNormalized);
+			if (GUI.Button(new Rect(resumeButton), "Restart"))
+			{
+				Time.timeScale = 1.0f;
+				PlayerSphere.respawn = true;
+				isPaused = false;
+				gameOver = false;
 			}
 			if (GUI.Button(new Rect(optionsButton), "Options"))
 			{
