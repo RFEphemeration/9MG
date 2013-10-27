@@ -16,9 +16,9 @@ public class Move : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		Vector3 direction = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical")) * 0.3f;
-		//transform.position += direction;
-		rigidbody.AddForce(direction * 100);
-		transform.rotation = Quaternion.LookRotation(direction);
+		transform.position += direction;
+		//rigidbody.AddForce(direction * 100);
+		//transform.rotation = Quaternion.LookRotation(direction);
 	}
 	
 	void OnCollisionEnter(Collision col) {
