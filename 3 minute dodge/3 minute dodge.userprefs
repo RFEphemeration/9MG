@@ -7,7 +7,7 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Move.cs" selected="True" />
+                <Node name="PauseMenuGUI.cs" selected="True" />
               </Node>
             </Node>
           </Node>

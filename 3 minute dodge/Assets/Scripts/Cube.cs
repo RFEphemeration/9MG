@@ -13,12 +13,14 @@ public class Cube : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameObject.tag = "Cube";
+		float scale = 1.2f - ((float)Random.Range(0,100))/120f;
+		transform.localScale = new Vector3(scale, scale, scale);
 		direction = new Vector3(Random.Range(-100,100), 0, Random.Range (-100,100));
 		direction.Normalize();
 		lethal = false;
 		start = renderer.material;
 		chaseStart = Time.time + 2.5f;
-		chaseEnd = Time.time + 6.5f;
+		chaseEnd = Time.time + 5.5f;
 	}
 	
 	// FixedUpdate is called once per timestep
@@ -33,23 +35,29 @@ public class Cube : MonoBehaviour {
 		}
 		if (lethal) {
 			if (Time.time > chaseStart && Time.time < chaseEnd) {
-				GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Cube");
-				float distance = float.PositiveInfinity;
-				Vector3 other;
-				foreach (GameObject player in allPlayers) {
-					Vector3 offset = player.transform.position - transform.position;
-					float sqrLen = offset.sqrMagnitude;
-					if (sqrLen < distance) {
-						distance = sqrLen;
-						other = player.transform.position;
-					}
-				}
-				Vector3 towardPlayer = (other - transform.position).normalized;
-				rigidbody.AddForce(towardPlayer * 100);
+				Vector3 towardPlayer = findClosestPlayer() - transform.position;
+				towardPlayer.Normalize();
+				//rigidbody.velocity = (towardPlayer * 4);
+				rigidbody.AddForce(towardPlayer * 20);
 			} else {
 				rigidbody.AddForce(direction * 20);
 			}
 		}
+	}
+	
+	Vector3 findClosestPlayer() {
+		GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+		float distance = Mathf.Infinity;
+		Vector3 other = Vector3.zero;
+		foreach (GameObject player in allPlayers) {
+			Vector3 offset = player.transform.position - transform.position;
+			float sqrLen = offset.sqrMagnitude;
+			if (sqrLen < distance) {
+				distance = sqrLen;
+				other = player.transform.position;
+			}
+		}
+		return other;
 	}
 	
 	void Update() {

@@ -70,11 +70,16 @@ public class PauseMenuGUI : MonoBehaviour {
 		{
 			GUI.BeginGroup(menuAreaNormalized);
 			if (GUI.Button(new Rect(resumeButton), "Restart"))
-			{
-				Time.timeScale = 1.0f;
+			{	
+				Time.timeScale = 0.0f;
 				PlayerSphere.respawn = true;
+				GameObject[] allcubes = GameObject.FindGameObjectsWithTag("Cube");
+				foreach (GameObject cube in allcubes) {
+					Destroy(cube);
+				}
 				isPaused = false;
 				gameOver = false;
+				Time.timeScale = 1.0f;
 			}
 			if (GUI.Button(new Rect(optionsButton), "Options"))
 			{
