@@ -6,11 +6,11 @@ using System.Collections;
 //aCurrentlySelectedUnit.GetComponent<BirdUnitFunctionalityAndStats>().moveCost
 
 public class Move : MonoBehaviour {
-	public GameObject killer;
 	
 	// Use this for initialization
 	void Start () {
-	
+		gameObject.tag = "Player";
+		boom();
 	}
 	
 	// Update is called once per frame
@@ -19,27 +19,32 @@ public class Move : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision col) {
-		if (col.gameObject.tag == killer.tag) { 
+		if (col.gameObject.tag == "Cube") { 
+			
+			boom();
+			
+			
 			//Destroy
 			Destroy(gameObject);
-			
-			//Boom
-			GameObject[] allObjects = GameObject.FindGameObjectsWithTag (killer.tag);
-			foreach (GameObject child in allObjects) {
-    			float dist = (transform.position - child.transform.position).magnitude;
-    			if (child.tag == killer.tag && dist < 5) {
-					Vector3 boom = ((child.rigidbody.position - transform.position).normalized + Vector3.up * 0.5f).normalized;
-					child.rigidbody.velocity = Vector3.zero;
-					child.GetComponent<Cube>().direction = Vector3.zero;
-					child.rigidbody.AddForce(boom * 400f);
-				}
-    		}
 			
 			//Pause and give option to reset.
 			//tell the pause menu to pause
 			PauseMenuGUI.gameOver = true;
 			
 		}
+	}
+	
+	void boom(float range = 5f, float magnitude = 400f) {
+		GameObject[] allObjects = GameObject.FindGameObjectsWithTag ("Cube");
+			foreach (GameObject child in allObjects) {
+    			float dist = (transform.position - child.transform.position).magnitude;
+    			if (dist < range) {
+					Vector3 boom = ((child.rigidbody.position - transform.position).normalized + Vector3.up * 0.1f).normalized;
+					child.rigidbody.velocity = Vector3.zero;
+					child.GetComponent<Cube>().direction = boom;
+					child.rigidbody.AddForce(boom * magnitude);
+				}
+    		}
 	}
 	
 }

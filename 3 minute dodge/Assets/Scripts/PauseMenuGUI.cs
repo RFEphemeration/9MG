@@ -40,7 +40,8 @@ public class PauseMenuGUI : MonoBehaviour {
                 }
 			if (gameOver)
 			{
-				Time.timeScale = 0.0f;
+				// don't pause the game when we die so you can see explosions
+				//Time.timeScale = 0.0f;
 			}
         }
         
