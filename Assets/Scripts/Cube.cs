@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Cube : MonoBehaviour {
 	public Vector3 direction;
-	public bool lethal;
 	public Material mat;
+	public Material dead;
 	private Material start;
-	private float t;
-	private float chaseStart;
-	private float chaseEnd;
+	public static string[] states = {"spawn", "start", "follow", "leave", "dying"};
+	public string state;
+	private float changeTime;
 
 	// Use this for initialization
 	void Start () {
@@ -17,10 +17,9 @@ public class Cube : MonoBehaviour {
 		transform.localScale = new Vector3(scale, scale, scale);
 		direction = new Vector3(Random.Range(-100,100), 0, Random.Range (-100,100));
 		direction.Normalize();
-		lethal = false;
-		start = renderer.material;
-		chaseStart = Time.time + 2.5f;
-		chaseEnd = Time.time + 5.5f;
+		start = new Material(renderer.material);
+		state = Cube.states[0];
+		changeTime = Time.time + 0.6f;
 	}
 	
 	// FixedUpdate is called once per timestep
@@ -29,18 +28,27 @@ public class Cube : MonoBehaviour {
 		if (transform.position.y < -5) {
 			Destroy(gameObject);
 		}
-		if (!lethal && transform.position.y <= 1.2) {
-			lethal = true;
-			t = Time.time;
-		}
-		if (lethal) {
-			if (Time.time > chaseStart && Time.time < chaseEnd) {
-				Vector3 towardPlayer = findClosestPlayer() - transform.position;
-				towardPlayer.Normalize();
-				//rigidbody.velocity = (towardPlayer * 4);
-				rigidbody.AddForce(towardPlayer * 20);
-			} else {
-				rigidbody.AddForce(direction * 20);
+		if (state == "follow") {
+			Vector3 towardPlayer = findClosestPlayer() - transform.position;
+			towardPlayer.Normalize();
+			//rigidbody.velocity = (towardPlayer * 4);
+			rigidbody.AddForce(towardPlayer * 20);
+			if (Time.time > changeTime) state = "leave";
+		} else if (state == "start") {
+			rigidbody.AddForce(direction * 20);
+			if (Time.time > changeTime) {
+				state = "follow";
+				changeTime += 3f;
+			}
+		} else if (state == "leave") {
+			rigidbody.AddForce(direction * 20);
+		} else if (state == "dying") {
+			transform.position += Vector3.up * 3;
+			if (transform.position.y > 4) Destroy (gameObject);
+		} else if (state == "spawn") {
+			if (Time.time > changeTime){
+				state = "start";
+				changeTime += 1f;
 			}
 		}
 	}
@@ -60,10 +68,17 @@ public class Cube : MonoBehaviour {
 		return other;
 	}
 	
+	void killMe() {
+		rigidbody.velocity = Vector3.zero;
+		state = "dying";
+	}
+	
 	void Update() {
-		if (lethal) {
-			float lerp = (Time.time - t) * 0.7f;
-			renderer.material.Lerp(start, mat, lerp);
+		if (state == "dying") {
+			renderer.material = dead;
+		} else {
+			
+			renderer.material.Lerp(start, mat, 1.8f - transform.position.y);
 		}
 	}
 	

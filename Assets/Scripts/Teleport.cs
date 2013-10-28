@@ -27,8 +27,10 @@ public class Teleport : MonoBehaviour {
 		{
 			range = Time.time - startTime;
 			range = Mathf.Min(range * 3.0f, 5.0f);
-			direction = (new Vector3(Input.GetAxis("Mouse X"), 0, Input.GetAxis("Mouse Y")));
-			direction = (direction - transform.position).normalized * range;
+			direction = (new Vector3(Input.GetAxis("Mouse X"), 0f, Input.GetAxis("Mouse Y")));
+			direction = (direction - transform.position).normalized;
+			if (direction.y != 0f) direction.y = 0f;
+			direction *= range;
 			teleportDirection(direction);
 			startedCounting = false;
 		}
@@ -37,6 +39,7 @@ public class Teleport : MonoBehaviour {
 	
 	public void teleportDirection(Vector3 d)
 	{
-		transform.position += d;	
+		transform.position += d;
+		gameObject.GetComponent<Move>().boom();
 	}
 }
