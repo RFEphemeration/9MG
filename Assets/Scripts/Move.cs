@@ -13,6 +13,10 @@ public class Move : MonoBehaviour {
 		boom();
 	}
 	
+	void Update() {
+		if (transform.position.y < -1) killMe ();
+	}
+	
 	// Update is called once per frame
 	void FixedUpdate () {
 		Vector3 direction = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical")) * 0.3f;
@@ -23,16 +27,8 @@ public class Move : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.tag == "Cube") { 
+			killMe();
 			
-			boom();
-			
-			
-			//Destroy
-			Destroy(gameObject);
-			
-			//Pause and give option to reset.
-			//tell the pause menu to pause
-			PauseMenuGUI.gameOver = true;
 			
 		}
 	}
@@ -48,6 +44,18 @@ public class Move : MonoBehaviour {
 					child.rigidbody.AddForce(boom * magnitude);
 				}
     		}
+	}
+	
+	void killMe() {
+		boom();
+			
+			
+			//Destroy
+			Destroy(gameObject);
+			
+			//Pause and give option to reset.
+			//tell the pause menu to pause
+			PauseMenuGUI.gameOver = true;
 	}
 	
 }
