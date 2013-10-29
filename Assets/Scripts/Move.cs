@@ -7,13 +7,13 @@ using System.Collections;
 
 public class Move : MonoBehaviour {
 	
-	public int lives;
+	//public int lives;
 	
 	// Use this for initialization
 	void Start () {
 		gameObject.tag = "Player";
 		boom();
-		lives = 3;
+		//lives = 3;
 	}
 	
 	// Update is called once per frame
@@ -34,8 +34,10 @@ public class Move : MonoBehaviour {
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.tag == "Cube") {
 			boom();
-			if (lives == 0) killMe();
-			lives --;
+			gameObject.transform.parent.SendMessage("takeDamage");
+			//Moved to PlayerSphere
+			//if (lives == 0) killMe();
+			//lives --;
 		}
 	}
 	
