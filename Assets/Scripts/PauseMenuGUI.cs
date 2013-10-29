@@ -10,22 +10,28 @@ public class PauseMenuGUI : MonoBehaviour {
         public Rect resumeButton;
         public Rect optionsButton;
         public Rect quitButton;
+		public Rect soundFXButton;
+		public Rect musicButton;
+		public Rect backButton;
         Rect menuAreaNormalized;
         public static bool isPaused = false;
         public static bool gameOver = false;
+		private bool optionsMenu;
         
         public bool networking = false;
         
         // Use this for initialization
         void Start () {
-                menuAreaNormalized = new Rect(menuArea.x * Screen.width * 0.5f - (menuArea.width * 0.5f),
+		
+			optionsMenu = false;
+            menuAreaNormalized = new Rect(menuArea.x * Screen.width * 0.5f - (menuArea.width * 0.5f),
 			menuArea.y * Screen.height * 0.5f - (menuArea.height * 0.5f), 
 			menuArea.width, menuArea.height);
         }
         
         // Update is called once per frame
         void Update () {
-                if(Input.GetKeyDown(KeyCode.Escape) && !gameOver)
+                if((Input.GetButtonDown("Pause")) && !gameOver)
                 {
                         if(!isPaused)
                         {
@@ -38,17 +44,12 @@ public class PauseMenuGUI : MonoBehaviour {
                                 isPaused = false;
                         }
                 }
-			if (gameOver)
-			{
-				// don't pause the game when we die so you can see explosions
-				//Time.timeScale = 0.0f;
-			}
         }
         
 	void OnGUI() {
 		GUI.skin = menuSkin;
 		GUI.depth = guiDepth;
-		if(isPaused)
+		if(isPaused && !optionsMenu)
 		{
 			GUI.BeginGroup(menuAreaNormalized);
 			if (GUI.Button(new Rect(resumeButton), "Resume"))
@@ -58,7 +59,7 @@ public class PauseMenuGUI : MonoBehaviour {
 			}
 			if (GUI.Button(new Rect(optionsButton), "Options"))
 			{
-				//Nothing here yet.
+				optionsMenu = true;
 			}
 			if(GUI.Button(new Rect(quitButton), "Quit"))
 			{
@@ -66,7 +67,7 @@ public class PauseMenuGUI : MonoBehaviour {
 			}
 			GUI.EndGroup();
 		}
-		if (gameOver)
+		else if (gameOver && !optionsMenu)
 		{
 			GUI.BeginGroup(menuAreaNormalized);
 			if (GUI.Button(new Rect(resumeButton), "Restart"))
@@ -83,13 +84,33 @@ public class PauseMenuGUI : MonoBehaviour {
 			}
 			if (GUI.Button(new Rect(optionsButton), "Options"))
 			{
-				//Nothing here yet.
+				optionsMenu = true;
 			}
 			if(GUI.Button(new Rect(quitButton), "Quit"))
 			{
-				StartCoroutine("ButtonAction", "quit");
+				//TODO
+				//StartCoroutine("ButtonAction", "quit");
 			}
 			GUI.EndGroup();
+		}
+		else if (optionsMenu)
+		{
+			GUI.BeginGroup(menuAreaNormalized);
+			
+			if (GUI.Button(new Rect(soundFXButton), "Sound Fx"))
+			{
+				//TODO
+			}
+			if (GUI.Button(new Rect(musicButton), "Music"))
+			{
+				//TODO
+			}
+			if(GUI.Button(new Rect(backButton), "Back"))
+			{
+				optionsMenu = false;
+			}
+			GUI.EndGroup();
+			
 		}
                     
 	}
