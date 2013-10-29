@@ -13,13 +13,15 @@ public class Move : MonoBehaviour {
 		boom();
 	}
 	
+	// Update is called once per frame
 	void Update() {
-		if (transform.position.y < -1) killMe();
+		
 	}
 	
-	// Update is called once per frame
+	// Fixed update is called once per timestep
 	void FixedUpdate () {
-		Vector3 direction = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical")) * 0.3f;
+		if (transform.position.y < -1) killMe();
+		Vector3 direction = new Vector3(Input.GetAxis("Move X"),0,Input.GetAxis("Move Y")) * 0.3f;
 		transform.position += direction;
 		//rigidbody.AddForce(direction * 100);
 		//transform.rotation = Quaternion.LookRotation(direction);
