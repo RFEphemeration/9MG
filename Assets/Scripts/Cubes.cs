@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Cubes : MonoBehaviour {
-	public float delay = 0.1f;
+	public float delay = 0.3f;
 	public GameObject cube;
 
 	// Use this for initialization

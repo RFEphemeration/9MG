@@ -47,6 +47,7 @@ public class Teleport : MonoBehaviour {
 				} // else we aren't holding a direction and shouldn't be able to teleport in place
 				startedCounting = false;
 				startTime = Time.time + RECHARGE;
+				direction = Vector3.zero;
 				Destroy(reticle);
 			}
 			

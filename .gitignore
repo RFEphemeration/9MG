@@ -3,8 +3,8 @@
 Temp/
 Obj/
 UnityGenerated/
-Library/metadata/
-Library/ScriptAssemblies/
+Library/metadata/*
+Library/ScriptAssemblies/*
 ProjectSettings/InputManager.asset
  
 # ===================================== #
