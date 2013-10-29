@@ -9,6 +9,7 @@ public class Cube : MonoBehaviour {
 	public static string[] states = {"spawn", "start", "follow", "leave", "dying"};
 	public string state;
 	private float changeTime;
+	private bool firstPush;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,7 @@ public class Cube : MonoBehaviour {
 		start = new Material(renderer.material);
 		state = Cube.states[0];
 		changeTime = Time.time + 0.6f;
+		firstPush = true;
 	}
 	
 	// FixedUpdate is called once per timestep
@@ -39,6 +41,10 @@ public class Cube : MonoBehaviour {
 			if (Time.time > changeTime) {
 				state = "follow";
 				changeTime += 3f;
+			}
+			if (firstPush) {
+				rigidbody.AddForce(transform.position * -1); // toward center
+				firstPush = false;
 			}
 		} else if (state == "leave") {
 			rigidbody.AddForce(direction * 20);
