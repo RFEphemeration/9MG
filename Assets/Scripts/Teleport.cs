@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Teleport : MonoBehaviour {
 	
-	private static float RANGE = 5.0f; 
+	private static float RANGE = 7.0f; 
 	private static float RECHARGE = 1.0f;
 	private static float RATE = 1.5f;
 	
@@ -51,8 +51,9 @@ public class Teleport : MonoBehaviour {
 			}
 			if (direction.sqrMagnitude < 0.01 || fire) {
 				// else we want to cancel teleport
+				if (fire) startTime = Time.time + RECHARGE;
+				else startTime = Time.time;
 				startedCounting = false;
-				startTime = Time.time + RECHARGE;
 				direction = Vector3.zero;
 				Destroy(reticle);
 			}

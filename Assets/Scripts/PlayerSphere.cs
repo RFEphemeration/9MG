@@ -7,13 +7,15 @@ public class PlayerSphere : MonoBehaviour {
 	
 	private GameObject character;
 	
+	private static float SAFETIME = 1f;
+	
 	public static bool respawn = false;
-	private int health;
-	public int startingHealth;
+	private int shields;
+	public int startingShields;
+	private float hitTime;
 	
 	// Use this for initialization
 	void Start () {
-		health = startingHealth;
 		Spawn();
 	}
 	
@@ -30,7 +32,8 @@ public class PlayerSphere : MonoBehaviour {
 	
 	void Spawn () {
 		
-		health = startingHealth;
+		shields = startingShields;
+		hitTime = Time.time;
 		Vector3 position = new Vector3(0, 0, 0);
 		
 		character = (GameObject) Instantiate(theSphere, position, Quaternion.identity);
@@ -39,9 +42,14 @@ public class PlayerSphere : MonoBehaviour {
 	
 	private void takeDamage()
 	{
-		health--;
-		if (health <= 0)
-			character.SendMessage("killMe");
+		if (Time.time > hitTime) {
+			if (shields <= 0)
+				character.SendMessage("killMe");
+			shields--;
+			hitTime = Time.time + SAFETIME;
+			character.SendMessage("hitMe", hitTime);
+		}
 	}
+	
 	
 }

@@ -7,27 +7,30 @@ using System.Collections;
 
 public class Move : MonoBehaviour {
 	
-	//public int lives;
+	private float safeTime;
+	public Material mat;
+	private Material start;
 	
 	// Use this for initialization
 	void Start () {
 		gameObject.tag = "Player";
 		boom();
+		start = new Material(renderer.material);
 		//lives = 3;
 	}
 	
 	// Update is called once per frame
 	void Update() {
-		
+		renderer.material.Lerp(start, mat, safeTime - Time.time);
 	}
 	
 	// Fixed update is called once per timestep
 	void FixedUpdate () {
-		if (transform.position.y < -1) killMe();
+		if (transform.position.y < -5) killMe();
 		Vector3 direction = new Vector3(Input.GetAxis("Move X"),0,Input.GetAxis("Move Y"));
 		rigidbody.velocity = rigidbody.velocity * 0.95f;
-		transform.position += direction * 0.3f;
-		//rigidbody.AddForce(direction * 100);
+		transform.position += direction * 0.27f;
+		rigidbody.AddForce(direction * 20);
 		//transform.rotation = Quaternion.LookRotation(direction);
 	}
 	
@@ -35,9 +38,6 @@ public class Move : MonoBehaviour {
 		if (col.gameObject.tag == "Cube") {
 			boom();
 			gameObject.transform.parent.SendMessage("takeDamage");
-			//Moved to PlayerSphere
-			//if (lives == 0) killMe();
-			//lives --;
 		}
 	}
 	
@@ -56,7 +56,9 @@ public class Move : MonoBehaviour {
 			}
     	}
 	}
-	
+	void hitMe(float time) {
+		safeTime = time;
+	}
 	void killMe() {
 		
 		//Destroy

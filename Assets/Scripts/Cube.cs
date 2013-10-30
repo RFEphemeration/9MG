@@ -83,16 +83,16 @@ public class Cube : MonoBehaviour {
 		if (state == "dying") {
 			renderer.material = dead;
 		} else {
-			
 			renderer.material.Lerp(start, mat, 1.8f - transform.position.y);
 		}
 	}
 	
-	/*
+	
 	void OnCollisionEnter(Collision col) {
-		Vector3 boom = rigidbody.position - col.gameObject.rigidbody.position;
-		boom.Normalize();
-		rigidbody.AddForce(boom * 100);
+		if (col.relativeVelocity.magnitude > 20 && col.gameObject.tag == "Cube") {
+			rigidbody.velocity = Vector3.zero;
+			rigidbody.AddForce(Vector3.up * 400);
+		}
 	}
-	*/
+	
 }
