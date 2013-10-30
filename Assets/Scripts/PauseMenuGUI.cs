@@ -56,6 +56,7 @@ public class PauseMenuGUI : MonoBehaviour {
 				isPaused = false;
 				gameOver = false;
 				Time.timeScale = 1.0f;
+				ClockGUI.resetStartTime();
 	}
 	
 	void OnGUI() {
