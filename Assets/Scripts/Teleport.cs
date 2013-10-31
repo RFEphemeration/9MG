@@ -63,6 +63,7 @@ public class Teleport : MonoBehaviour {
 	
 	public void teleportDirection(Vector3 d)
 	{
+		rigidbody.velocity = Vector3.zero;
 		transform.position += d;
 		gameObject.GetComponent<Move>().boom();
 	}

@@ -10,6 +10,7 @@ public class Move : MonoBehaviour {
 	private float safeTime;
 	public Material mat;
 	private Material start;
+	private static float MAX_ACCELERATION = 10f;
 	
 	// Use this for initialization
 	void Start () {
@@ -28,9 +29,19 @@ public class Move : MonoBehaviour {
 	void FixedUpdate () {
 		if (transform.position.y < -5) killMe();
 		Vector3 direction = new Vector3(Input.GetAxis("Move X"),0,Input.GetAxis("Move Y"));
-		rigidbody.velocity = rigidbody.velocity * 0.95f;
-		transform.position += direction * 0.27f;
-		rigidbody.AddForce(direction * 20);
+		rigidbody.velocity = rigidbody.velocity * 0.90f;
+		
+		float dot = Vector3.Dot(direction, rigidbody.velocity);
+		if (dot < 0) {
+			rigidbody.AddForce(direction * 40);
+			transform.position += direction * 0.16f;
+			Debug.Log ("negative dot");
+		} else {
+			Debug.Log ("position dot");
+			transform.position += direction * 0.31f;
+			rigidbody.AddForce(direction * 15);
+		}
+		//if rigidbody.velocity.sqrMagnitude > 
 		//transform.rotation = Quaternion.LookRotation(direction);
 	}
 	
