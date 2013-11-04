@@ -11,8 +11,16 @@ public class Teleport : MonoBehaviour {
 	float startTime;
 	Vector3 direction;
 	bool startedCounting;
+	
 	public GameObject reticleType;
 	private GameObject reticle;
+	
+	
+	//Right trigger charge
+	private double charge;
+	
+	public GameObject maxRangeSphereType;
+	private GameObject maxRangeSphere;
 	
 	void Start()
 	{
@@ -24,8 +32,57 @@ public class Teleport : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+		//RIGHT TRIGGER CHARGE CONTROL SCHEME
 		direction.x = Input.GetAxis("Aim X");
 		direction.z = Input.GetAxis("Aim Y");
+		
+		charge = Input.GetAxis("Charge 1");
+		
+		bool fire2 = (Mathf.Abs(direction.x) >= 0.1 || Mathf.Abs(direction.z) >= 0.1);
+		
+		if (charge >= 0.5 && !startedCounting && startTime < Time.time)
+		{
+			//createTheSphere
+			direction.Normalize();
+			startedCounting = true;
+			startTime = Time.time;
+			maxRangeSphere = (GameObject) Instantiate(maxRangeSphereType, Vector3.zero, Quaternion.identity);
+			maxRangeSphere.transform.parent = gameObject.transform;
+			
+			//if (maxRangeSphere.transform.rotation != Quaternion.Euler(0, 0, 0)) {
+         	//	maxRangeSphere.transform.rotation = Quaternion.Euler(0, 0, 0);
+     		//}
+			
+			maxRangeSphere.transform.position = gameObject.transform.position + Vector3.zero;
+			//maxRangeSphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		}
+		if (startedCounting && charge > 0.5)
+		{
+			if (charge > 0.5)
+			{
+				//growing the spehere
+				direction.Normalize();
+				range = (Time.time - startTime) * RANGE * RATE;
+				range = Mathf.Min(range, RANGE);
+				maxRangeSphere.transform.localScale = new Vector3(2 * range, 2 * range, 2 * range);
+			}
+			if (fire2 || charge <= 0.5)
+			{
+				direction *= range;
+				teleportDirection(direction);
+				// else we want to cancel teleport
+				if (fire2) startTime = Time.time + RECHARGE;
+				else startTime = Time.time;
+				startedCounting = false;
+				direction = Vector3.zero;
+				Destroy(maxRangeSphere);
+			}
+		}
+	
+		
+		//ORIGINAL TELEPORT CONTROL SCHEME
+		/*direction.x = Input.GetAxis("Aim X");
+		//direction.z = Input.GetAxis("Aim Y");
 		bool fire = Input.GetAxis("Charge 1") >= 0.02;
 		if ((direction.sqrMagnitude > 0.5 || fire) && !startedCounting && startTime < Time.time)
 		{
@@ -57,7 +114,7 @@ public class Teleport : MonoBehaviour {
 				direction = Vector3.zero;
 				Destroy(reticle);
 			}
-		}
+		}*/
 		
 	}
 	
