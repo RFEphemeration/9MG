@@ -78,6 +78,17 @@ public class Teleport : MonoBehaviour {
 				Destroy(maxRangeSphere);
 			}
 		}
+		else if (startedCounting && charge <= 0.5)
+		{
+				direction *= range;
+				teleportDirection(direction);
+				// else we want to cancel teleport
+				if (fire2) startTime = Time.time + RECHARGE;
+				else startTime = Time.time;
+				startedCounting = false;
+				direction = Vector3.zero;
+				Destroy(maxRangeSphere);
+		}
 	
 		
 		//ORIGINAL TELEPORT CONTROL SCHEME
