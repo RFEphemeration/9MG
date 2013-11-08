@@ -23,10 +23,15 @@ public class Move : MonoBehaviour {
 	// Update is called once per frame
 	void Update() {
 		renderer.material.Lerp(start, mat, safeTime - Time.time);
+		
 	}
 	
 	// Fixed update is called once per timestep
 	void FixedUpdate () {
+		
+		//adding more gravity
+		rigidbody.AddForce(0,-50,0);
+		
 		if (transform.position.y < -5) killMe();
 		Vector3 direction = new Vector3(Input.GetAxis("Move X"),0,Input.GetAxis("Move Y"));
 		rigidbody.velocity = rigidbody.velocity * 0.90f;
@@ -59,11 +64,17 @@ public class Move : MonoBehaviour {
     		if (dist < range) {
 				Vector3 boom = ((child.rigidbody.position - transform.position).normalized + Vector3.up * 0.5f).normalized;
 				child.rigidbody.velocity = Vector3.zero;
-				child.GetComponent<Cube>().state = "leave";
+				if (child.GetComponent<Cube>())
+				{
+					child.GetComponent<Cube>().state = "leave";
+				}
 				child.rigidbody.AddForce(boom * magnitude);
 				boom.y = 0;
 				boom.Normalize();
-				child.GetComponent<Cube>().direction = boom;
+				if (child.GetComponent<Cube>())
+				{
+					child.GetComponent<Cube>().direction = boom;
+				}
 			}
     	}
 	}
