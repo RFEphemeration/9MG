@@ -64,7 +64,8 @@ public class Teleport : MonoBehaviour {
 				direction.Normalize();
 				range = (Time.time - startTime) * RANGE * RATE;
 				range = Mathf.Min(range, RANGE);
-				maxRangeSphere.transform.localScale = new Vector3(2 * range, 2 * range, 2 * range);
+				maxRangeSphere.transform.localScale = new Vector3(2 * range, 1, 2 * range);
+				maxRangeSphere.transform.rotation = Quaternion.identity;
 			}
 			if (fire2 || charge <= 0.5)
 			{
