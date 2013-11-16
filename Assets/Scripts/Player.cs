@@ -85,4 +85,11 @@ public class Player : Character {
 		PauseMenuGUI.gameOver = true;
 	}
 	
+	void reset()
+	{
+		shields = startingShields;
+		hitTime = Time.time;
+		Vector3 position = new Vector3(0, 0, 0);
+	}
+	
 }
