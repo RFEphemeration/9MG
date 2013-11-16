@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cubes : MonoBehaviour {
+public class Cubes : Spawner {
 	public float delay = 0.3f;
-	public GameObject cube;
+	//public GameObject cube;
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +13,7 @@ public class Cubes : MonoBehaviour {
 	void Spawn () {
 		Vector3 position = new Vector3(Random.Range(10,-10), 3, Random.Range (10,-10));
 		
-		Instantiate(cube, position, Quaternion.identity);
+		Instantiate(theObject, position, Quaternion.identity);
 	}
 	
 

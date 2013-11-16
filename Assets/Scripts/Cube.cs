@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cube : MonoBehaviour {
+public class Cube : Enemy {
 	public Vector3 direction;
 	public Material mat;
 	public Material dead;

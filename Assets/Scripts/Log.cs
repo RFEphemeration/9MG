@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Log : MonoBehaviour {
+public class Log : Enemy {
 
 	public Vector3 direction;
 	public Material mat;
