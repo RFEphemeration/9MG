@@ -23,12 +23,10 @@ public class PlayerSpawner : Spawner {
 	}
 	
 	void Spawn () {
+		theObject.SendMessage("reset"); 
 		
-		shields = startingShields;
-		hitTime = Time.time;
+		
 		Vector3 position = new Vector3(0, 0, 0);
-		
-		theObject = (GameObject) Instantiate(theSphere, position, Quaternion.identity);
-		theObject.transform.parent = transform;
+		Instantiate(theObject, position, Quaternion.identity);
 	}
 }
