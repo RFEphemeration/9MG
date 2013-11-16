@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Teleport : MonoBehaviour {
+public class Teleportor {
 	
 	private static float RANGE = 7.0f; 
 	private static float RECHARGE = 1.0f;
@@ -22,7 +22,7 @@ public class Teleport : MonoBehaviour {
 	public GameObject maxRangeSphereType;
 	private GameObject maxRangeSphere;
 	
-	void Start()
+	public Teleportor()
 	{
 		startTime = Time.time;
 		startedCounting = false;
@@ -30,7 +30,7 @@ public class Teleport : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void TeleportUpdate () {
+	public Vector3 GetTeleport () {
 		
 		//RIGHT TRIGGER CHARGE CONTROL SCHEME
 		direction.x = Input.GetAxis("Aim X");
@@ -39,6 +39,7 @@ public class Teleport : MonoBehaviour {
 		charge = Input.GetAxis("Charge 1");
 		
 		bool fire2 = (Mathf.Abs(direction.x) >= 0.1 || Mathf.Abs(direction.z) >= 0.1);
+		bool flag = true;
 		
 		if (charge >= 0.5 && !startedCounting && startTime < Time.time)
 		{
@@ -70,7 +71,7 @@ public class Teleport : MonoBehaviour {
 			if (fire2 || charge <= 0.5)
 			{
 				direction *= range;
-				teleportDirection(direction);
+				flag = true;
 				// else we want to cancel teleport
 				if (fire2) startTime = Time.time + RECHARGE;
 				else startTime = Time.time;
@@ -82,7 +83,7 @@ public class Teleport : MonoBehaviour {
 		else if (startedCounting && charge <= 0.5)
 		{
 				direction *= range;
-				teleportDirection(direction);
+				flag = true;
 				// else we want to cancel teleport
 				if (fire2) startTime = Time.time + RECHARGE;
 				else startTime = Time.time;
@@ -90,52 +91,10 @@ public class Teleport : MonoBehaviour {
 				direction = Vector3.zero;
 				Destroy(maxRangeSphere);
 		}
-	
-		
-		//ORIGINAL TELEPORT CONTROL SCHEME
-		/*direction.x = Input.GetAxis("Aim X");
-		//direction.z = Input.GetAxis("Aim Y");
-		bool fire = Input.GetAxis("Charge 1") >= 0.02;
-		if ((direction.sqrMagnitude > 0.5 || fire) && !startedCounting && startTime < Time.time)
-		{
-			direction.Normalize();
-			startedCounting = true;
-			startTime = Time.time;
-			reticle = (GameObject)Instantiate(reticleType, Vector3.zero, Quaternion.identity);
-			reticle.transform.parent = gameObject.transform;
-			reticle.transform.position = gameObject.transform.position + Vector3.zero;
+		if (flag) {
+			return direction;
+		} else {
+			return null;
 		}
-		
-		if (startedCounting) {
-			if (direction.sqrMagnitude > 0.5) {
-				direction.Normalize();
-				range = (Time.time - startTime) * RANGE * RATE;
-				range = Mathf.Min(range, RANGE);
-				reticle.transform.position = gameObject.transform.position + direction.normalized * range;
-			}
-			
-			if (fire) {
-				direction *= range;
-				teleportDirection(direction);
-			}
-			if (direction.sqrMagnitude < 0.01 || fire) {
-				// else we want to cancel teleport
-				if (fire) startTime = Time.time + RECHARGE;
-				else startTime = Time.time;
-				startedCounting = false;
-				direction = Vector3.zero;
-				Destroy(reticle);
-			}
-		}*/
-		
-	}
-	
-	public Vector3 teleportDirection(Vector3 d)
-	{
-		rigidbody.velocity = Vector3.zero;
-		transform.position += d;
-		gameObject.GetComponent<Move>().boom();
-	
-		return d;
 	}
 }

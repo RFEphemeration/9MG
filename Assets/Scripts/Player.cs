@@ -15,18 +15,28 @@ public class Player : Character {
 	private float safeTime;
 	public Material mat;
 	private Material start;
+	private Teleportor teleportor;
 	
 	// Use this for initialization
 	void Start () {
 		gameObject.tag = "Player";
 		boom();
 		start = new Material(renderer.material);
-		//lives = 3;
+		teleportor = new Teleportor();
 	}
 	
 	// Update is called once per frame
 	void Update() {
 		renderer.material.Lerp(start, mat, safeTime - Time.time);
+	}
+	
+	void FixedUpdate() {
+		Vector3 teleport = teleportor.GetTeleport();
+		if (teleport != null) {
+			rigidbody.velocity = Vector3.zero;
+			transform.position += teleport;
+			boom();
+		}
 		
 		if (transform.position.y < -5) killMe();
 		
@@ -35,7 +45,13 @@ public class Player : Character {
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.tag == "Cube") {
 			boom();
-			gameObject.transform.parent.SendMessage("takeDamage");
+			if (Time.time > hitTime) {
+				if (shields <= 0)
+					killMe();
+				shields--;
+				hitTime = Time.time + SAFETIME;
+				safeTime = time;
+			}
 		}
 	}
 	
@@ -61,23 +77,7 @@ public class Player : Character {
     	}
 	}
 	
-	
-	private void takeDamage()
-	{
-		if (Time.time > hitTime) {
-			if (shields <= 0)
-				killMe();
-			shields--;
-			hitTime = Time.time + SAFETIME;
-			hitMe(hitTime);
-		}
-	}
-	
-	void hitMe(float time) {
-		safeTime = time;
-	}
 	void killMe() {
-		
 		//Destroy
 		Destroy(gameObject);
 		//Pause and give option to reset.
