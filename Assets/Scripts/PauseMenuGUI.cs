@@ -48,7 +48,7 @@ public class PauseMenuGUI : MonoBehaviour {
 	
 	void restart() {
 		Time.timeScale = 0.0f;
-				PlayerSphere.respawn = true;
+				PlayerSpawner.respawn = true;
 				GameObject[] allcubes = GameObject.FindGameObjectsWithTag("Cube");
 				foreach (GameObject cube in allcubes) {
 					Destroy(cube);
