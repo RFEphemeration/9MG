@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Teleportor {
+public class Teleportor : MonoBehaviour {
 	
 	private static float RANGE = 7.0f; 
 	private static float RECHARGE = 1.0f;
@@ -94,7 +94,7 @@ public class Teleportor {
 		if (flag) {
 			return direction;
 		} else {
-			return null;
+			return new Vector3(0, 9001, 0);
 		}
 	}
 }

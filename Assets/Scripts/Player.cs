@@ -8,11 +8,9 @@ public class Player : Character {
 	private static float SAFETIME = 1f;
 	
 	private int shields;
-	public int startingShields;
-	private float hitTime;
-	
-	
+	public int startingShields;	
 	private float safeTime;
+	
 	public Material mat;
 	private Material start;
 	private Teleportor teleportor;
@@ -32,7 +30,7 @@ public class Player : Character {
 	
 	void FixedUpdate() {
 		Vector3 teleport = teleportor.GetTeleport();
-		if (teleport != null) {
+		if (teleport.y <= 9000 ) {
 			rigidbody.velocity = Vector3.zero;
 			transform.position += teleport;
 			boom();
@@ -45,12 +43,11 @@ public class Player : Character {
 	void OnCollisionEnter(Collision col) {
 		if (col.gameObject.tag == "Cube") {
 			boom();
-			if (Time.time > hitTime) {
+			if (Time.time > safeTime) {
 				if (shields <= 0)
 					killMe();
 				shields--;
-				hitTime = Time.time + SAFETIME;
-				safeTime = time;
+				safeTime = Time.time + SAFETIME;
 			}
 		}
 	}
@@ -88,8 +85,7 @@ public class Player : Character {
 	void reset()
 	{
 		shields = startingShields;
-		hitTime = Time.time;
-		Vector3 position = new Vector3(0, 0, 0);
+		safeTime = Time.time + SAFETIME;
 	}
 	
 }
