@@ -30,7 +30,7 @@ public class Teleport : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void TeleportUpdate () {
 		
 		//RIGHT TRIGGER CHARGE CONTROL SCHEME
 		direction.x = Input.GetAxis("Aim X");
@@ -130,10 +130,12 @@ public class Teleport : MonoBehaviour {
 		
 	}
 	
-	public void teleportDirection(Vector3 d)
+	public Vector3 teleportDirection(Vector3 d)
 	{
 		rigidbody.velocity = Vector3.zero;
 		transform.position += d;
 		gameObject.GetComponent<Move>().boom();
+	
+		return d;
 	}
 }
