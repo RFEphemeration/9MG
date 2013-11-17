@@ -5,6 +5,8 @@ public class PlayerSpawner : Spawner {
 	
 	public static bool respawn = false;
 	
+	private GameObject player;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -23,10 +25,8 @@ public class PlayerSpawner : Spawner {
 	}
 	
 	void Spawn () {
-		theObject.SendMessage("reset"); 
-		
-		
+
 		Vector3 position = new Vector3(0, 0, 0);
-		Instantiate(theObject, position, Quaternion.identity);
+		player = (GameObject) Instantiate(theObject, position, Quaternion.identity);
 	}
 }

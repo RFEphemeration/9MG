@@ -6,15 +6,10 @@ public class Teleportor : MonoBehaviour {
 	private static float RANGE = 7.0f; 
 	private static float RECHARGE = 1.0f;
 	private static float RATE = 1.5f;
-	
-	float range;
+
 	float startTime;
 	Vector3 direction;
 	bool startedCounting;
-	
-	public GameObject reticleType;
-	private GameObject reticle;
-	
 	
 	//Right trigger charge
 	private double charge;
@@ -39,7 +34,7 @@ public class Teleportor : MonoBehaviour {
 		charge = Input.GetAxis("Charge 1");
 		
 		bool fire2 = (Mathf.Abs(direction.x) >= 0.1 || Mathf.Abs(direction.z) >= 0.1);
-		bool flag = true;
+		bool flag = false;
 		
 		if (charge >= 0.5 && !startedCounting && startTime < Time.time)
 		{
@@ -57,14 +52,15 @@ public class Teleportor : MonoBehaviour {
 			maxRangeSphere.transform.position = gameObject.transform.position + Vector3.zero;
 			//maxRangeSphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 		}
+		float range = (Time.time - startTime) * RANGE * RATE;
+		range = Mathf.Min(range, RANGE);
+		
 		if (startedCounting && charge > 0.5)
 		{
 			if (charge > 0.5)
 			{
 				//growing the spehere
-				direction.Normalize();
-				range = (Time.time - startTime) * RANGE * RATE;
-				range = Mathf.Min(range, RANGE);
+				direction.Normalize();		
 				maxRangeSphere.transform.localScale = new Vector3(2 * range, 1, 2 * range);
 				maxRangeSphere.transform.rotation = Quaternion.identity;
 			}
