@@ -7,10 +7,8 @@ public class Log : Enemy {
 	public Material mat;
 	public Material dead;
 	private Material start;
-	public static string[] states = {"spawn", "start", "dying"};
-	public string state;
+	new public static string[] states = {"spawn", "start", "dying"};
 	private float changeTime;
-	private bool firstPush;
 
 	// Use this for initialization
 	void Start () {
@@ -39,7 +37,6 @@ public class Log : Enemy {
 		start = new Material(renderer.material);
 		state = Cube.states[0];
 		changeTime = Time.time + 0.6f;
-		firstPush = true;
 	}
 	
 	// FixedUpdate is called once per timestep

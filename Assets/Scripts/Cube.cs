@@ -6,8 +6,7 @@ public class Cube : Enemy {
 	public Material mat;
 	public Material dead;
 	private Material start;
-	public static string[] states = {"spawn", "start", "follow", "leave", "dying"};
-	public string state;
+	new public static string[] states = {"spawn", "start", "follow", "leave", "dying"};
 	private float changeTime;
 	private bool firstPush;
 

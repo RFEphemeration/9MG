@@ -5,9 +5,6 @@ public class PlayerSpawner : Spawner {
 	
 	public static bool respawn = false;
 	
-	private GameObject player;
-	
-	
 	// Use this for initialization
 	void Start () {
 		Spawn();
@@ -27,6 +24,6 @@ public class PlayerSpawner : Spawner {
 	void Spawn () {
 
 		Vector3 position = new Vector3(0, 0, 0);
-		player = (GameObject) Instantiate(theObject, position, Quaternion.identity);
+		Instantiate(theObject, position, Quaternion.identity);
 	}
 }

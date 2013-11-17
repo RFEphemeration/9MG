@@ -13,14 +13,13 @@ public class Player : Character {
 	
 	public Material mat;
 	private Material start;
-	private Teleportor teleportor;
+	
 	
 	// Use this for initialization
 	void Start () {
 		gameObject.tag = "Player";
 		boom();
 		start = new Material(renderer.material);
-		teleportor = new Teleportor();
 		shields = startingShields;
 		safeTime = Time.time + SAFETIME;
 	}
@@ -51,14 +50,6 @@ public class Player : Character {
 			rigidbody.AddForce(direction * 15);
 		}
 		
-		// teleport
-		Vector3 teleport = teleportor.GetTeleport();
-		if (teleport.y <= 9000 ) {
-			rigidbody.velocity = Vector3.zero;
-			transform.position += teleport;
-			boom();
-		}
-		
 	}
 	
 	void OnCollisionEnter(Collision col) {
@@ -73,7 +64,7 @@ public class Player : Character {
 		}
 	}
 	
-	public void boom(float range = 3f, float magnitude = 400f) {
+	public void boom(float range = 3f, float magnitude = 15f) {
 		GameObject[] allObjects = GameObject.FindGameObjectsWithTag ("Cube");
 		foreach (GameObject child in allObjects) {
     		float dist = (transform.position - child.transform.position).magnitude;
