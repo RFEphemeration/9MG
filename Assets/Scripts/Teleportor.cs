@@ -58,6 +58,7 @@ public class Teleportor : MonoBehaviour {
 		
 		if (startedCounting && (fire || charge <= 0.5))
 		{
+			Vector3 startPosition, endPosition;
 			float range = (Time.time - startTime) * RANGE * RATE;
 			range = Mathf.Min(range, RANGE);
 			direction.Normalize();	
@@ -65,7 +66,11 @@ public class Teleportor : MonoBehaviour {
 			startTime = Time.time + RECHARGE;
 			startedCounting = false;
 			maxRangeSphere.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+			startPosition = gameObject.transform.position;
 			gameObject.transform.position += direction;
+			
+			//get the cube intersections here and kill them.
+			
 			gameObject.rigidbody.velocity = Vector3.zero;
 			gameObject.SendMessage("boom");
 		}
