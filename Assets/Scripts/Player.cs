@@ -15,6 +15,8 @@ public class Player : Character {
 	public Material mat;
 	private Material start;
 	
+	//player should maybe have an id associated?
+	private int id;
 	
 	// Use this for initialization
 	void Start () {
@@ -97,8 +99,12 @@ public class Player : Character {
 		Destroy(gameObject);
 		//Pause and give option to reset.
 		//tell the pause menu to pause
-		PauseMenuGUI.gameOver = true;
+		PlayerSpawner.numDead++;
 	}
-
+	
+	void setID(int pID)
+	{
+		id = pID;
+	}
 	
 }

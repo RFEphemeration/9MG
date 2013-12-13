@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class Spawner : MonoBehaviour {
 	
-	public GameObject theObject;
+	public GameObject[] theObjects;
 	
 	// Use this for initialization
 	void Start () {}

@@ -21,22 +21,22 @@ public class LogsSpawner : Spawner {
 		if (randomPos >= 75)
 		{
 			position = new Vector3(10, 3, Random.Range (-7,7));
-			Instantiate(theObject, position, theObject.transform.rotation);
+			Instantiate(theObjects[0], position, theObjects[0].transform.rotation);
 		}
 		else if (randomPos >= 50)
 		{
 			position = new Vector3(-10, 3, Random.Range(-7, 7));
-			Instantiate(theObject, position, theObject.transform.rotation);
+			Instantiate(theObjects[0], position, theObjects[0].transform.rotation);
 		}
 		else if (randomPos >= 25)
 		{
 			position = new Vector3(Random.Range(-7, 7), 3, 10);
-			Instantiate(theObject, position, Quaternion.Euler(0.0f, 0.0f, 90.0f));
+			Instantiate(theObjects[0], position, Quaternion.Euler(0.0f, 0.0f, 90.0f));
 		}
 		else
 		{
 			position = new Vector3(Random.Range(-7, 7), 3, -10);
-			Instantiate(theObject, position, Quaternion.Euler(0.0f, 0.0f, 90.0f));
+			Instantiate(theObjects[0], position, Quaternion.Euler(0.0f, 0.0f, 90.0f));
 		}
 		
 	}
