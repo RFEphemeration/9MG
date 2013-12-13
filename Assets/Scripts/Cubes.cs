@@ -13,7 +13,7 @@ public class Cubes : Spawner {
 	void Spawn () {
 		Vector3 position = new Vector3(Random.Range(10,-10), 3, Random.Range (10,-10));
 		
-		Instantiate(theObject, position, Quaternion.identity);
+		Instantiate(theObjects[0], position, Quaternion.identity);
 	}
 	
 
