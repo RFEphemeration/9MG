@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using InControl;
 
 
 public class PauseMenuGUI : MonoBehaviour {
@@ -30,7 +31,7 @@ public class PauseMenuGUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetButtonDown("Pause")) {
+		if(InputManager.ActiveDevice.GetControl(InputControlType.Start)) {
 			if (gameOver) {
 				restart ();
 			} else {

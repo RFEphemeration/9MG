@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using InControl;
 
 public class Player : Character {
 	
@@ -30,7 +31,7 @@ public class Player : Character {
 	}
 	
 	void FixedUpdate() {
-	
+		
 		// death
 		if (transform.position.y < -5) killMe();
 		
@@ -38,7 +39,8 @@ public class Player : Character {
 		rigidbody.AddForce(0,-50,0);
 		
 		// move
-		Vector3 direction = new Vector3(Input.GetAxis("Move X"),0,Input.GetAxis("Move Y"));
+		Vector2 input = InputManager.ActiveDevice.LeftStickVector;
+		Vector3 direction = new Vector3(input.x, 0, input.y);
 		rigidbody.velocity = rigidbody.velocity * 0.90f;
 		
 		float dot = Vector3.Dot(direction, rigidbody.velocity);
@@ -53,7 +55,7 @@ public class Player : Character {
 	}
 	
 	void OnCollisionEnter(Collision col) {
-		if (col.gameObject.tag == "Cube") {
+		if (col.gameObject.tag == "Cube" || col.gameObject.tag == "Log") { // find a better way of grouping enemies
 			boom();
 			if (Time.time > safeTime) {
 				if (shields <= 0)
@@ -84,6 +86,10 @@ public class Player : Character {
 				}
 			}
     	}
+	}
+	
+	public void boomDefault() {
+		boom ();
 	}
 	
 	void killMe() {

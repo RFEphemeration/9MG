@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using InControl;
 
 public class Teleportor : MonoBehaviour {
 	
@@ -41,10 +42,11 @@ public class Teleportor : MonoBehaviour {
 	void FixedUpdate() {
 		
 		//RIGHT TRIGGER CHARGE CONTROL SCHEME
-		direction.x = Input.GetAxis("Aim X");
-		direction.z = Input.GetAxis("Aim Y");
+		Vector2 input = InputManager.ActiveDevice.RightStickVector;
+		direction.x = input.x;
+		direction.z = input.y;
 		
-		charge = Input.GetAxis("Charge 1");
+		charge = InputManager.ActiveDevice.RightTrigger;
 		
 		bool fire = (Mathf.Abs(direction.x) >= 0.2 || Mathf.Abs(direction.z) >= 0.2);
 		
@@ -67,7 +69,7 @@ public class Teleportor : MonoBehaviour {
 			maxRangeSphere.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
 			gameObject.transform.position += direction;
 			gameObject.rigidbody.velocity = Vector3.zero;
-			gameObject.SendMessage("boom");
+			gameObject.SendMessage("boomDefault");
 		}
 	}
 }

@@ -12,7 +12,7 @@ public class Log : Enemy {
 
 	// Use this for initialization
 	void Start () {
-		gameObject.tag = "Cube";
+		gameObject.tag = "Log";
 		//float scale = 1.2f - ((float)Random.Range(0,100))/120f;
 		//transform.localScale = new Vector3(scale, scale, scale);
 		//direction = new Vector3(Random.Range(-100,100), 0, Random.Range (-100,100));
@@ -76,14 +76,6 @@ public class Log : Enemy {
 			renderer.material = dead;
 		} else {
 			renderer.material.Lerp(start, mat, 1.8f - transform.position.y);
-		}
-	}
-	
-	
-	void OnCollisionEnter(Collision col) {
-		if (col.relativeVelocity.magnitude > 20 && col.gameObject.tag == "Cube") {
-			rigidbody.velocity = Vector3.zero;
-			rigidbody.AddForce(Vector3.up * 400);
 		}
 	}
 }
