@@ -31,7 +31,7 @@ public class PauseMenuGUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(InputManager.ActiveDevice.GetControl(InputControlType.Start)) {
+		if(InputManager.ActiveDevice.GetControl(InputControlType.Start).WasPressed) {
 			if (gameOver) {
 				restart ();
 			} else {

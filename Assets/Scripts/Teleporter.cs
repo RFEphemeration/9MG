@@ -2,7 +2,7 @@
 using System.Collections;
 using InControl;
 
-public class Teleportor : MonoBehaviour {
+public class Teleporter : MonoBehaviour {
 	
 	private static float RANGE = 7.0f; 
 	private static float RECHARGE = 1.0f;
@@ -17,6 +17,8 @@ public class Teleportor : MonoBehaviour {
 	
 	public GameObject maxRangeSphereType;
 	private GameObject maxRangeSphere;
+	
+	private int id = 1;
 	
 	void Start() {
 		startTime = Time.time;
@@ -40,13 +42,11 @@ public class Teleportor : MonoBehaviour {
 	}
 	
 	void FixedUpdate() {
-		
 		//RIGHT TRIGGER CHARGE CONTROL SCHEME
-		Vector2 input = InputManager.ActiveDevice.RightStickVector;
-		direction.x = input.x;
-		direction.z = input.y;
+		direction.x = InputManager.Devices[id].RightStickX;
+		direction.z = InputManager.Devices[id].RightStickY;
 		
-		charge = InputManager.ActiveDevice.RightTrigger;
+		charge = InputManager.Devices[id].RightTrigger;
 		
 		bool fire = (Mathf.Abs(direction.x) >= 0.2 || Mathf.Abs(direction.z) >= 0.2);
 		
@@ -76,5 +76,10 @@ public class Teleportor : MonoBehaviour {
 			gameObject.rigidbody.velocity = Vector3.zero;
 			gameObject.SendMessage("boomDefault");
 		}
+	}
+	
+	void setTeleporterID(int pID)
+	{
+		id = pID;
 	}
 }

@@ -7,6 +7,8 @@ public class PlayerSpawner : Spawner {
 	
 	public static int numDead;
 	
+	private GameObject[] theInstances;
+	
 	//player spawner will be told by the GUI how many players to spawn and will do just that.
 	private int numPlayers = 2;
 	//to do more players I needed to make it an array of onjects.
@@ -14,10 +16,7 @@ public class PlayerSpawner : Spawner {
 	// Use this for initialization
 	void Start () {
 		numDead = 0;
-		for (int i = 0; i < numPlayers; i++)
-		{
-			theObjects[i].SendMessage("setID", i);
-		}
+		theInstances = new GameObject[theObjects.Length];
 		Spawn();
 	}
 	
@@ -41,8 +40,10 @@ public class PlayerSpawner : Spawner {
 		
 		for (int i = 0; i < numPlayers; i++)
 		{
-			Vector3 position = new Vector3((i - 2) * 4, 0, 0);
-			Instantiate(theObjects[i], position, Quaternion.identity);
+			Vector3 position = new Vector3((i - 1) * 4, 0, 0);
+			theInstances[i] = Instantiate(theObjects[i], position, Quaternion.identity) as GameObject;
+			theInstances[i].SendMessage("setPlayerID", i+1);
+			theInstances[i].SendMessage("setTeleporterID", i+1);
 		}
 		
 	}

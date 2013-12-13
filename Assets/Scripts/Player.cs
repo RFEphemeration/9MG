@@ -16,7 +16,7 @@ public class Player : Character {
 	private Material start;
 	
 	//player should maybe have an id associated?
-	private int id;
+	private int id = 1;
 	
 	// Use this for initialization
 	void Start () {
@@ -41,8 +41,7 @@ public class Player : Character {
 		rigidbody.AddForce(0,-50,0);
 		
 		// move
-		Vector2 input = InputManager.ActiveDevice.LeftStickVector;
-		Vector3 direction = new Vector3(input.x, 0, input.y);
+		Vector3 direction = new Vector3(InputManager.Devices[id].LeftStickX, 0, InputManager.Devices[id].LeftStickY);
 		rigidbody.velocity = rigidbody.velocity * 0.90f;
 		
 		float dot = Vector3.Dot(direction, rigidbody.velocity);
@@ -102,7 +101,7 @@ public class Player : Character {
 		PlayerSpawner.numDead++;
 	}
 	
-	void setID(int pID)
+	void setPlayerID(int pID)
 	{
 		id = pID;
 	}
