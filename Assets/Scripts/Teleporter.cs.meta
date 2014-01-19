@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 5a55f642864bc6d47ad59a5aa23fad83
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - maxRangeSphereType: {fileID: 100000, guid: e4422fbd8979c4d48a0ce6f6ceeb3e82, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
