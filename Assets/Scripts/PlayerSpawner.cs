@@ -10,7 +10,7 @@ public class PlayerSpawner : Spawner {
 	private GameObject[] theInstances;
 	
 	//player spawner will be told by the GUI how many players to spawn and will do just that.
-	private int numPlayers = 1;
+	private int numPlayers = 2;
 	//to do more players I needed to make it an array of onjects.
 	
 	// Use this for initialization
