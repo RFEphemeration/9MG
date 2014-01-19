@@ -5,8 +5,6 @@ Obj/
 UnityGenerated/
 Library/metadata/*
 Library/ScriptAssemblies/*
-ProjectSettings/InputManager.asset
-ProjectSettings\InputManager.asset
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
