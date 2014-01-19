@@ -48,16 +48,17 @@ public class PauseMenuGUI : MonoBehaviour {
 	
 	
 	void restart() {
-		Time.timeScale = 0.0f;
-				PlayerSpawner.respawn = true;
-				GameObject[] allcubes = GameObject.FindGameObjectsWithTag("Cube");
-				foreach (GameObject cube in allcubes) {
-					Destroy(cube);
-				}
-				isPaused = false;
-				gameOver = false;
-				Time.timeScale = 1.0f;
-				ClockGUI.resetStartTime();
+		Application.LoadLevel(0);
+//		Time.timeScale = 0.0f;
+//		PlayerSpawner.respawn = true;
+//		GameObject[] allcubes = GameObject.FindGameObjectsWithTag("Cube");
+//		foreach (GameObject cube in allcubes) {
+//			Destroy(cube);
+//		}
+		isPaused = false;
+		gameOver = false;
+//		Time.timeScale = 1.0f;
+		ClockGUI.resetStartTime();
 	}
 	
 	void OnGUI() {
