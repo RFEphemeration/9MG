@@ -7,7 +7,7 @@ public class Teleporter : MonoBehaviour {
 	private static float RANGE = 7.0f; 
 	private static float RECHARGE = 1.0f;
 	private static float RATE = 1.5f;
-
+	
 	float startTime;
 	Vector3 direction;
 	public bool startedCounting;

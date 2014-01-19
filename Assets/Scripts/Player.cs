@@ -17,7 +17,7 @@ public class Player : Character {
 	
 	//player should maybe have an id associated?
 	private int id = 1;
-	
+
 	// Use this for initialization
 	void Start () {
 		gameObject.tag = "Player";
@@ -30,6 +30,7 @@ public class Player : Character {
 	// Update is called once per frame
 	void Update() {
 		renderer.material.Lerp(start, mat, safeTime - Time.time);
+
 	}
 	
 	void FixedUpdate() {
@@ -52,7 +53,7 @@ public class Player : Character {
 			transform.position += direction * 0.31f;
 			rigidbody.AddForce(direction * 15);
 		}
-		
+	
 	}
 	
 	void OnCollisionEnter(Collision col) {

@@ -7,15 +7,10 @@ public class InControlManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		InputManager.Setup();
-		InputManager.OnDeviceAttached += inputDevice => Debug.Log( "Attached: " + inputDevice.Name );
-		InputManager.OnDeviceDetached += inputDevice => Debug.Log( "Detached: " + inputDevice.Name );
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	// FixedUpdate is called once per physics time step
+	void FixedUpdate () {
 		InputManager.Update();
-			foreach (var d in InputManager.Devices ) {
-				Debug.Log(d.Name);
-			}
 	}
 }
