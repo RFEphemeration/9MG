@@ -12,7 +12,7 @@ public class Log : Enemy {
 
 	// Use this for initialization
 	void Start () {
-		gameObject.tag = "Log";
+		//gameObject.tag = "Log";
 		//float scale = 1.2f - ((float)Random.Range(0,100))/120f;
 		//transform.localScale = new Vector3(scale, scale, scale);
 		//direction = new Vector3(Random.Range(-100,100), 0, Random.Range (-100,100));
