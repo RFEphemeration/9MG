@@ -69,6 +69,7 @@ public class Teleporter : MonoBehaviour {
 			startedCounting = false;
 			maxRangeSphere.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
 			startPosition = gameObject.transform.position;
+			endPosition = startPosition + direction;
 			gameObject.transform.position += direction;
 			
 			//get the cube intersections here and kill them.
