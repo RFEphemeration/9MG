@@ -10,7 +10,7 @@ public class PlayerSpawner : Spawner {
 	private GameObject[] theInstances;
 	
 	//player spawner will be told by the GUI how many players to spawn and will do just that.
-	private int numPlayers = 2;
+	//private int numPlayers = 2;
 	//to do more players I needed to make it an array of onjects.
 	
 	// Use this for initialization
@@ -23,13 +23,10 @@ public class PlayerSpawner : Spawner {
 	// Update is called once per frame
 	void Update () {
 	
-		if (numDead == numPlayers)
-		{
+		if (numDead == theInstances.Length) {
 			PauseMenuGUI.gameOver = true;
 			numDead = 0;
-		}
-		if (respawn)
-		{
+		} if (respawn) {
 			respawn = false;
 			Spawn();
 		}
@@ -38,7 +35,7 @@ public class PlayerSpawner : Spawner {
 	
 	void Spawn () {
 		
-		for (int i = 0; i < numPlayers; i++)
+		for (int i = 0; i < theInstances.Length; i++)
 		{
 			Vector3 position = new Vector3((i - 1) * 4, 0, 0);
 			theInstances[i] = Instantiate(theObjects[i], position, Quaternion.identity) as GameObject;

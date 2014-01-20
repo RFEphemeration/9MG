@@ -5,6 +5,11 @@ public class LogsSpawner : Spawner {
 	
 	
 	public float delay = 30.0f;
+
+	public float spawnChange = 3.0f;
+	public float roundTime = 30.0f;
+	public float restTime = 5.0f;
+
 	private float startTime;
 	private bool pacingFlag;
 	//public GameObject log;
@@ -18,16 +23,16 @@ public class LogsSpawner : Spawner {
 
 	//Just check every 30 seconds and make it harder and harder every 30 seconds.
 	void FixedUpdate() {
-		if (Time.time - startTime >= 30.0f && !pacingFlag) {
+		if (Time.time - startTime >= roundTime && !pacingFlag) {
 			startTime = Time.time;
 			CancelInvoke("Spawn");
 			pacingFlag = true;
 		}
 
-		if (Time.time - startTime >= 3.0f && pacingFlag) {
+		if (Time.time - startTime >= restTime && pacingFlag) {
 			pacingFlag = false;
 			startTime = Time.time;
-			delay -= 3.0f;
+			delay -= spawnChange;
 			InvokeRepeating("Spawn", delay, delay);
 		}
 	}
