@@ -78,7 +78,8 @@ public class PauseMenuGUI : MonoBehaviour {
 			}
 			if(GUI.Button(new Rect(quitButton), "Quit"))
 			{
-				StartCoroutine("ButtonAction", "quit");
+				Application.Quit();
+				Debug.Log("Quit!");
 			}
 			GUI.EndGroup();
 		}
@@ -95,8 +96,8 @@ public class PauseMenuGUI : MonoBehaviour {
 			}
 			if(GUI.Button(new Rect(quitButton), "Quit"))
 			{
-				//TODO
-				//StartCoroutine("ButtonAction", "quit");
+				Application.Quit();
+				Debug.Log("Quit!");
 			}
 			GUI.EndGroup();
 		}
