@@ -17,6 +17,8 @@ public class Teleporter : MonoBehaviour {
 	
 	public GameObject maxRangeSphereType;
 	private GameObject maxRangeSphere;
+
+	public GameObject trail;
 	
 	private int id = 1;
 	
@@ -71,8 +73,15 @@ public class Teleporter : MonoBehaviour {
 			startPosition = gameObject.transform.position;
 			endPosition = startPosition + direction;
 			gameObject.transform.position += direction;
-			
-			//get the cube intersections here and kill them.
+			GameObject theTrail = (GameObject) Instantiate(trail, (startPosition + endPosition)/2, Quaternion.identity);
+			theTrail.SendMessage("setScale", (startPosition-endPosition).magnitude);
+			Vector3 forward = new Vector3(0,0,1);
+			Vector3 right = Vector3.Cross(Vector3.up, forward);
+			Vector3 dir = endPosition - startPosition;
+			float angle = Vector3.Angle(dir, forward);
+			float sign = (Vector3.Dot(dir, right) > 0.0f) ? 1.0f: -1.0f;
+			float finalAngle = sign * angle;
+			theTrail.SendMessage("setRotation", finalAngle);
 			
 			gameObject.rigidbody.velocity = Vector3.zero;
 			gameObject.SendMessage("boomDefault");

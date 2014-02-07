@@ -75,6 +75,7 @@ public class Cube : Enemy {
 	
 	void killMe() {
 		rigidbody.velocity = Vector3.zero;
+		rigidbody.collider.enabled = false;
 		state = "dying";
 	}
 	
